@@ -17,15 +17,17 @@ async def upload_video(file: UploadFile = File(...)):
     except NoCredentialsError:
         raise HTTPException(status_code=500, detail="Credentials not available")
 
+from fastapi.responses import StreamingResponse
+
 @app.get("/fetch-video/{file_name}")
 async def fetch_video(file_name: str):
     try:
-        file_url = s3_client.generate_presigned_url('get_object',
-                                                    Params={'Bucket': bucket_name, 'Key': file_name},
-                                                    ExpiresIn=3600)
-        return {"file_url": file_url}
+        response = s3_client.get_object(Bucket=bucket_name, Key=file_name)
+        return StreamingResponse(response['Body'], media_type="video/mp4")
     except NoCredentialsError:
         raise HTTPException(status_code=500, detail="Credentials not available")
+    except s3_client.exceptions.NoSuchKey:
+        raise HTTPException(status_code=404, detail="File not found")
 
 @app.delete("/delete-video/{file_name}")
 async def delete_video(file_name: str):
