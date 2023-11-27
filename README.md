@@ -10,7 +10,7 @@ upload:
 curl -X POST -F "file=@C:\Users\zhong\Downloads\video-example\micro3.mp4" http://ec2-3-140-208-26.us-east-2.compute.amazonaws.com:1024/upload-video/
 
 fetch: 
-'http://ec2-3-140-208-26.us-east-2.compute.amazonaws.com:1024/fetch-video/test11111.mp4'
+'http://ec2-3-140-208-26.us-east-2.compute.amazonaws.com:1024/fetch-video/micro3.mp4'
 
 delete:
 'curl -X DELETE http://ec2-3-140-208-26.us-east-2.compute.amazonaws.com:1024/delete-video/micro3.mp4'
