@@ -3,6 +3,13 @@ import boto3
 from botocore.exceptions import NoCredentialsError
 import uvicorn
 
+
+from fastapi.responses import JSONResponse
+from moviepy.editor import VideoFileClip
+import os
+import tempfile
+import base64
+
 app = FastAPI()
 
 # Initialize S3 client
